@@ -4,6 +4,7 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
 //import com.example.demo.src.post.model.*;
+import com.example.demo.src.post.model.GetPostsListRes;
 import com.example.demo.src.post.model.GetPostsRes;
 import com.example.demo.src.post.model.PostPostsReq;
 import com.example.demo.src.post.model.PostPostsRes;
@@ -33,6 +34,21 @@ public class PostController {
         this.postProvider = postProvider;
         this.postService = postService;
         this.jwtService = jwtService;
+    }
+
+    /**
+     * 1.1 게시판 리스트 조회 api
+     * @author boyeong
+     */
+    @ResponseBody
+    @GetMapping("")
+    public BaseResponse<List<GetPostsListRes>> getPostsList() {
+        try {
+            List<GetPostsListRes> getPostsListRes = postProvider.retrievePostsList();
+            return new BaseResponse<>(getPostsListRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
     }
 
     /**
