@@ -3,7 +3,9 @@ package com.example.demo.src.post;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-//import com.example.demo.src.post.model.*;
+import com.example.demo.src.post.model.*;
+import com.example.demo.src.post.model.PostPostsReq;
+import com.example.demo.src.post.model.PostPostsRes;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,4 +30,20 @@ public class PostService {
     }
 
 
+    /**
+     * 1.3 게시물 생성 api
+     * @param postPostsReq
+     * @throws BaseException
+     * @author taehyun
+     */
+    public PostPostsRes createPosts (PostPostsReq postPostsReq) throws BaseException{
+        try {
+            int postIdx = postDao.insertPosts(postPostsReq.getTitle(),postPostsReq.getContent());
+            return new PostPostsRes(postIdx);
+        }
+        catch (Exception exception) {
+            System.out.println(exception);
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
