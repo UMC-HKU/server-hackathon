@@ -4,6 +4,7 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
 //import com.example.demo.src.post.model.*;
+import com.example.demo.src.post.model.GetPostsRes;
 import com.example.demo.src.post.model.PostPostsReq;
 import com.example.demo.src.post.model.PostPostsRes;
 import com.example.demo.utils.JwtService;
@@ -48,6 +49,18 @@ public class PostController {
             }
             PostPostsRes postPostsRes = postService.createPosts(postPostsReq);
             return new BaseResponse<>(postPostsRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @GetMapping("/{postIdx}") // (GET) 127.0.0.1:9000/posts
+    public BaseResponse<GetPostsRes> getPosts(@PathVariable ("postIdx") int postIdx) { //<GetUserRes> model: 응답값.
+        //Model에서는 필요한 요청값/응답값 형식을 정리해놓는다. 어떠한 형태/어떠한 데이터를 출력할건지/클라에게 전달할건지 정의를 해주는곳
+        try {
+            GetPostsRes getPostsRes = postProvider.getPosts(postIdx);
+            return new BaseResponse<>(getPostsRes);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
