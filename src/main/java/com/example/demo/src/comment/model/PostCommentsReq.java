@@ -1,4 +1,4 @@
-package com.example.demo.src.post.model;
+package com.example.demo.src.comment.model;
 
 
 import lombok.AllArgsConstructor;
@@ -8,9 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetCommentsRes {
-    private int commentIdx;
+public class PostCommentsReq {
+    private int postIdx;
     private String content;
-    private String createdAt;
-
 }
