@@ -13,6 +13,7 @@ import java.util.List;
 public class PostDao {
 
     private JdbcTemplate jdbcTemplate;
+    private List<GetCommentsRes> getCommentsRes;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -32,6 +33,29 @@ public class PostDao {
         this.jdbcTemplate.update(insertPostQuery, insertPostParams);
         String lastInsertIdxQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdxQuery,int.class);
+    }
+
+    /**
+     * 3.1 게시물 리스트(피드) 조회
+     * @param postIdx
+     * @return
+     */
+    public GetPostsRes getPosts(int postIdx){
+        String selectPostsQuery = "SELECT * FROM Post WHERE postIdx = ?;";
+
+        int selectPostsParam = postIdx;
+        return this.jdbcTemplate.queryForObject(selectPostsQuery,
+                (rs,rowNum) -> new GetPostsRes(
+                        rs.getInt("postIdx"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getString("createdAt"),
+                        getCommentsRes = this.jdbcTemplate.query("SELECT commentIdx, content, createdAt FROM Comment WHERE postIdx = ?;",(rk, count) ->new GetCommentsRes(
+                                rk.getInt("commentIdx"),
+                                rk.getString("content"),
+                                rk.getString("createdAt")
+                        ), selectPostsParam )
+                ), selectPostsParam);
     }
 }
 
