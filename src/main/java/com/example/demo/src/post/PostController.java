@@ -3,7 +3,7 @@ package com.example.demo.src.post;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
-import com.example.demo.src.post.model.*;
+//import com.example.demo.src.post.model.*;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
