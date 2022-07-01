@@ -20,6 +20,25 @@ public class PostDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    /**
+     * 1.1 게시판 리스트 조회 api
+     * @author boyeong
+     */
+    public List<GetPostsListRes> readPostsList() {
+        String readPostsListQuery = "SELECT p.postIdx as postIdx, p.title as title, p.content as content, p.createdAt as createdAt, " +
+                "COUNT(c.content) as commentCount " +
+                "FROM Post as p " +
+                "left join Comment as c on c.postIdx = p.postIdx " +
+                "GROUP BY p.postIdx";
+
+        return this.jdbcTemplate.query(readPostsListQuery,
+                (rs,rowNum) -> new GetPostsListRes(
+                        rs.getInt("postIdx"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getString("createdAt"),
+                        rs.getInt("commentCount")));
+    }
 
     /**
      * 1.3 게시물 생성 api
