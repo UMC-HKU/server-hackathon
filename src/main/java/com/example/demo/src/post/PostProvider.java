@@ -44,6 +44,13 @@ public class PostProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    /**
+     * 1.2 게시물 리스트 조회
+     * @param postIdx
+     * @return
+     * @author hyeonwoo
+     */
     public GetPostsRes getPosts (int postIdx) throws BaseException {
         try {
             GetPostsRes getPosts = postDao.getPosts(postIdx);
@@ -54,6 +61,5 @@ public class PostProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
 
 }
