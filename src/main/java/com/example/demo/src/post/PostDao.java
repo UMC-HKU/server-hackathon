@@ -41,7 +41,7 @@ public class PostDao {
     }
 
     /**
-     * 1.2 게시물 리스트 조회
+     * 1.2 게시물 상세 페이지
      * @param postIdx
      * @author hyeonwoo
      */

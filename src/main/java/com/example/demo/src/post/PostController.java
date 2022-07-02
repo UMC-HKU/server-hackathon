@@ -52,9 +52,9 @@ public class PostController {
     }
 
     /**
-     * 1.2 게시물 리스트 조회
+     * 1.2 게시물 상세 페이지
      * @param postIdx
-     * @return
+     * @author hyeonwoo
      */
     @ResponseBody
     @GetMapping("/{postIdx}") // (GET) 127.0.0.1:9000/posts
