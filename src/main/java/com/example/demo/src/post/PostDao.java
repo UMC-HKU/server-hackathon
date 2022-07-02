@@ -29,7 +29,7 @@ public class PostDao {
                 "COUNT(c.content) as commentCount " +
                 "FROM Post as p " +
                 "left join Comment as c on c.postIdx = p.postIdx " +
-                "GROUP BY p.postIdx";
+                "GROUP BY p.postIdx ORDER BY p.postIdx DESC";
 
         return this.jdbcTemplate.query(readPostsListQuery,
                 (rs,rowNum) -> new GetPostsListRes(
