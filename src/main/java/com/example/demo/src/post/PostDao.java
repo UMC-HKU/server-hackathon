@@ -41,23 +41,9 @@ public class PostDao {
     }
 
     /**
-     * 1.3 게시물 생성 api
-     * @param title
-     * @param content
-     * @author taehyun
-     */
-    public int insertPosts(String title, String content) {
-        String insertPostQuery = "INSERT INTO Post(title, content) VALUES (?,?)";
-        Object[] insertPostParams = new Object[]{title, content};
-        this.jdbcTemplate.update(insertPostQuery, insertPostParams);
-        String lastInsertIdxQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery,int.class);
-    }
-
-    /**
-     * 3.1 게시물 리스트(피드) 조회
+     * 1.2 게시물 리스트 조회
      * @param postIdx
-     * @return
+     * @author hyeonwoo
      */
     public GetPostsRes getPosts(int postIdx){
         String selectPostsQuery = "SELECT * FROM Post WHERE postIdx = ?;";
@@ -75,6 +61,21 @@ public class PostDao {
                                 rk.getString("createdAt")
                         ), selectPostsParam )
                 ), selectPostsParam);
+    }
+
+
+    /**
+     * 1.3 게시물 생성 api
+     * @param title
+     * @param content
+     * @author taehyun
+     */
+    public int insertPosts(String title, String content) {
+        String insertPostQuery = "INSERT INTO Post(title, content) VALUES (?,?)";
+        Object[] insertPostParams = new Object[]{title, content};
+        this.jdbcTemplate.update(insertPostQuery, insertPostParams);
+        String lastInsertIdxQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdxQuery,int.class);
     }
 }
 

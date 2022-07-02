@@ -52,6 +52,23 @@ public class PostController {
     }
 
     /**
+     * 1.2 게시물 리스트 조회
+     * @param postIdx
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/{postIdx}") // (GET) 127.0.0.1:9000/posts
+    public BaseResponse<GetPostsRes> getPosts(@PathVariable ("postIdx") int postIdx) { //<GetUserRes> model: 응답값.
+        //Model에서는 필요한 요청값/응답값 형식을 정리해놓는다. 어떠한 형태/어떠한 데이터를 출력할건지/클라에게 전달할건지 정의를 해주는곳
+        try {
+            GetPostsRes getPostsRes = postProvider.getPosts(postIdx);
+            return new BaseResponse<>(getPostsRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
      * 1.3 게시물 생성 api : /post
      * @param postPostsReq
      * @author taehyun
@@ -69,19 +86,6 @@ public class PostController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
-
-    @ResponseBody
-    @GetMapping("/{postIdx}") // (GET) 127.0.0.1:9000/posts
-    public BaseResponse<GetPostsRes> getPosts(@PathVariable ("postIdx") int postIdx) { //<GetUserRes> model: 응답값.
-        //Model에서는 필요한 요청값/응답값 형식을 정리해놓는다. 어떠한 형태/어떠한 데이터를 출력할건지/클라에게 전달할건지 정의를 해주는곳
-        try {
-            GetPostsRes getPostsRes = postProvider.getPosts(postIdx);
-            return new BaseResponse<>(getPostsRes);
-        } catch (BaseException exception) {
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-
 }
 
 
